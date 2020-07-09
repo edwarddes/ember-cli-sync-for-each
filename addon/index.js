@@ -1,17 +1,18 @@
-import Ember from 'ember';
+import { typeOf } from '@ember/utils';
+import Promise from 'rsvp';
 
 var syncForEach = function(enumerable, callback, force, index){
-  index = Ember.typeOf(index) === 'undefined' ? 0 : index;
-  force = Ember.typeOf(force) === 'undefined' ? false : force;
+  index = typeOf(index) === 'undefined' ? 0 : index;
+  force = typeOf(force) === 'undefined' ? false : force;
 
   var array = enumerable.get('content') || enumerable;
 
-  return new Ember.RSVP.Promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
     if (index < array.length) {
 
       var result = callback.call(this, array[index], index, array);
 
-      if (result && Ember.typeOf(result['then']) === 'function') {
+      if (result && typeOf(result['then']) === 'function') {
 
         if (force) {
           result.then(null,reject).finally(function() {
