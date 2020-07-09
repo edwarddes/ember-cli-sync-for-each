@@ -1,5 +1,5 @@
 import { typeOf } from '@ember/utils';
-import Promise from 'rsvp';
+import RSVP from 'rsvp';
 
 var syncForEach = function(enumerable, callback, force, index){
   index = typeOf(index) === 'undefined' ? 0 : index;
@@ -7,7 +7,7 @@ var syncForEach = function(enumerable, callback, force, index){
 
   var array = enumerable.get('content') || enumerable;
 
-  return new Promise(function(resolve, reject) {
+  return new RSVP.Promise(function(resolve, reject) {
     if (index < array.length) {
 
       var result = callback.call(this, array[index], index, array);
